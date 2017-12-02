@@ -1,0 +1,83 @@
+<!-- Jeffrey Phelps - DU Web Dev Bootcamp 2017/2018 - Week-5 Homework - Trivia Game -->
+
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+    <head>
+        
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+      <title>Trivia</title>
+      
+      <link rel="stylesheet" href="normalize.css" type="text/css" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Luckiest+Guy">
+      <link rel="stylesheet" href="style.css">
+        
+    </head>
+
+    <body>
+
+        <div class="container-fluid" id="container">
+
+            <!-- Header Row -->
+            <div class="row" id="header">
+        
+                <div class="col-xs-1 col-sm-1 col-md-3 col-lg-3" id="titleSpacer"></div>
+        
+                <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6" id="titleBox">
+                    <div id="titleText">Super Trivia</div>
+                </div>
+        
+            </div>
+            <!-- End Header Row -->
+
+            <!-- Main Row -->
+            <div class="row" id="mainRow">
+                
+                <div class="col-xs-1 col-sm-1 col-md-3 col-lg-3" id="mainSpacer"></div>
+        
+                <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6" id="mainBox">
+
+                    <div id="leftSide">
+
+                        <div id="questions" class="innerBoxes"></div>
+                        <div id="answers" class="innerBoxes"></div>
+
+                    </div>
+
+                    <div id="rightSide">
+
+                        <div id="images" class="innerBoxes"></div>
+                        <div id="info" class="innerBoxes"></div>
+                            
+                    </div>
+                    
+                </div>
+        
+            </div>
+            <!-- End Header Row -->
+
+        </div>
+
+        <!-- Begin Footer -->
+        <div id="footerBox">
+            
+            <div id="footer">
+                <p>© Copyright Jeffrey Phelps 2017</p>
+            </div>
+
+        </div>
+        <!-- End Footer -->
+
+        <!-- Remote jQuery, javascript file for the Bootstrap's javascript file to function -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Local JavaScript file -->
+        <script src="script.js"></script>
+
+    </body>
+
+</html>
