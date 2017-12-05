@@ -1,8 +1,8 @@
 /* Jeffrey Phelps - DU Web Dev Bootcamp 2017/2018 - Week-5 Homework - Trivia Game */
 
 body {
-    background-color: darkblue;
-    background-image: url("images/bkgrnd3.png");
+    background-color: rgba(255, 0, 0, 0.7);
+    background-image: url("images/bkgrnd.jpg");
     color: #ffffff;
     font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
@@ -23,13 +23,14 @@ body {
 }
 
 #titleBox {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(0, 128, 0, 0.7);
     text-align: center;
     border-radius: 50%;
+    border: 13px solid rgba(255, 0, 0, 0.7);
 }
 
 #titleText {
-    color: rgba(0, 0, 255, 0.7);
+    color: rgba(255, 0, 0, 0.7);
     font-family: 'Luckiest Guy', cursive;
     font-size: 70px;
     font-weight: bolder;
@@ -55,35 +56,47 @@ body {
 /* BEGIN MAIN BOX */
 
 #mainBox {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 0, 0, 0.7);
     height: 500px;
     margin-top: 20px;
-    border-radius: 10px;
+    border-radius: 50%;
 }
 
-#leftSide {
-    float: left;
-    margin-top: 10px;
-    height: 480px;
-    width: 50%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
+#quizBox {
+    margin-top: 20px;
+    width: 100%;
+    height: 92%;
+    background-color: rgba(0, 128, 0, 0.7);
+    text-align: center;
+    border-radius: 50%;
 }
 
-#rightSide {
-    float: right;
-    margin-top: 10px;
-    height: 480px;
-    width: 50%;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
+.question {
+    width: 70%;
+    margin-left: 15%;
+    font-size: 30px;
 }
 
-.innerBoxes {
-    border: 1px solid #ffffff;
-    height: 50%;
+ul {
+    margin-left: 35%;
+    list-style-type: none;
+    text-align: left;
+    font-size: 20px;
+}
+
+input {
+    color: rgba(255, 0, 0, 0.7);
+    font-weight: bold;
+}
+
+.quizMessage {
+    font-size: 20px;
+    color: rgba(255, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+.result {
+    font-size: 20px;
 }
 
 /* END MAIN BOX */
@@ -97,8 +110,8 @@ body {
     position: fixed;
     left: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.7);
-    color: rgba(0, 0, 255, 0.7);
+    background-color: rgba(0, 128, 0, 0.7);
+    color: rgba(255, 255, 255, 0.7);
     text-align: center;
 }
 
@@ -121,3 +134,9 @@ body {
 }
 
 /* END RESPONSIVE CHANGES */
+
+
+
+
+
+
