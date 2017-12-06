@@ -1,24 +1,7 @@
 // Jeffrey Phelps - DU Web Dev Bootcamp 2017/2018 - Week-5 Homework - Trivia Game
 
-// Setting up game audio
 
-
-
-// Creating random background music
-
-
-
-// Wait until the document loads to...
-
-
-
-
-
-
-
-
-
-
+// The Questions
 
 var questions = [{
     question: "Which department store created Rudolph the Red-Nosed Reindeer?",
@@ -68,85 +51,149 @@ var quizOver = false;
 
 
 
-
+// Wait until the document loads to...
 $(document).ready(function () {
-
-    // Display the first question
-    displayCurrentQuestion();
-    $(this).find(".quizMessage").hide();
-
-    // On clicking next, display the next question
-    $(this).find(".nextButton").on("click", function () {
-        if (!quizOver) {
-
-            value = $("input[type='radio']:checked").val();
-
-            if (value == undefined) {
-                $(document).find(".quizMessage").text("Please select an answer");
-                $(document).find(".quizMessage").show();
-            } else {
-                // TODO: Remove any message -> not sure if this is efficient to call this each time....
-                $(document).find(".quizMessage").hide();
-
-                if (value == questions[currentQuestion].correctAnswer) {
-                    correctAnswers++;
-                }
-
-                currentQuestion++; // Since we have already displayed the first question on DOM ready
-                if (currentQuestion < questions.length) {
-                    displayCurrentQuestion();
+    
+        // Display the first question
+        displayCurrentQuestion();
+        $(this).find(".quizMessage").hide();
+    
+        // On clicking next, display the next question
+        $(this).find(".nextButton").on("click", function () {
+            audio1.play();
+            if (!quizOver) {
+    
+                value = $("input[type='radio']:checked").val();
+    
+                if (value == undefined) {
+                    $(document).find(".quizMessage").text("Please select an answer");
+                    $(document).find(".quizMessage").show();
                 } else {
-                    // Change the text in the next button to ask if user wants to play again
-                    $(document).find(".nextButton").text("Play Again?");
-                    displayScore();
-                    quizOver = true;
+                    $(document).find(".quizMessage").hide();
+    
+                    if (value == questions[currentQuestion].correctAnswer) {
+                        correctAnswers++;
+                    }
+    
+                    currentQuestion++; // Since we have already displayed the first question on DOM ready
+                    if (currentQuestion < questions.length) {
+                        displayCurrentQuestion();
+                    } else {
+                        displayScore();
+                        // Change the text in the next button to ask if user wants to play again
+                        $(document).find(".nextButton").text("Play Again?");
+                        quizOver = true;
+                    }
                 }
+            } else { // quiz is over and clicked the next button (which now displays 'Play Again?'
+                quizOver = false;
+                $(document).find(".nextButton").text("Next Question");
+                resetQuiz();
+                displayCurrentQuestion();
+                hideScore();
             }
-        } else { // quiz is over and clicked the next button (which now displays 'Play Again?'
-            quizOver = false;
-            $(document).find(".nextButton").text("Next Question");
-            resetQuiz();
-            displayCurrentQuestion();
-            hideScore();
-        }
+        });
+    
     });
-
-});
-
-// This displays the current question AND the choices
-function displayCurrentQuestion() {
-
-    console.log("In display current Question");
-
-    var question = questions[currentQuestion].question;
-    var questionClass = $(document).find(".quizContainer > .question");
-    var choiceList = $(document).find(".quizContainer > .choiceList");
-    var numChoices = questions[currentQuestion].choices.length;
-
-    // Set the questionClass text to the current question
-    $(questionClass).text(question);
-
-    // Remove all current <li> elements (if any)
-    $(choiceList).find("li").remove();
-
-    var choice;
-    for (i = 0; i < numChoices; i++) {
-        choice = questions[currentQuestion].choices[i];
-        $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
+    
+    // This displays the current question AND the choices
+    function displayCurrentQuestion() {
+    
+        console.log("In display current Question");
+    
+        var question = questions[currentQuestion].question;
+        var questionClass = $(document).find(".quizContainer > .question");
+        var choiceList = $(document).find(".quizContainer > .choiceList");
+        var numChoices = questions[currentQuestion].choices.length;
+    
+        // Set the questionClass text to the current question
+        $(questionClass).text(question);
+    
+        // Remove all current <li> elements (if any)
+        $(choiceList).find("li").remove();
+    
+        var choice;
+        for (i = 0; i < numChoices; i++) {
+            choice = questions[currentQuestion].choices[i];
+            $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
+        }
     }
-}
+    
+    function resetQuiz() {
+        currentQuestion = 0;
+        correctAnswers = 0;
+        hideScore();
+        audio2.play();
+        bkgrndAudio.play();
+    }
+    
+    function displayScore() {
+        
+        if (correctAnswers >= 7) {
+            audio3.play();
+            $(document).find(".quizContainer > .result").text("Excellent job! You scored: " + correctAnswers + " out of " + questions.length);
+        }
+        else if (correctAnswers >= 4) {
+            audio4.play();
+            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length);
+        }
+        else if (correctAnswers >= 1) {
+            audio5.play();
+            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + " You can do better!");
+        }
+        else if (correctAnswers < 1) {
+            bkgrndAudio.pause();
+            audio6.play();
+            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + " You should try again...");
+        }
 
-function resetQuiz() {
-    currentQuestion = 0;
-    correctAnswers = 0;
-    hideScore();
-}
+        $(document).find(".quizContainer > .result").show();
+    }
+    
+    function hideScore() {
+        $(document).find(".result").hide();
+    }
 
-function displayScore() {
-    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length);
-    $(document).find(".quizContainer > .result").show();
-}
 
-function hideScore() {
-    $(document).find(".result").hide();
-}
+
+
+// Setting up game audio
+var audio1 = document.createElement("audio");
+audio1.src = "audio/bells1.mp3";
+
+var audio2 = document.createElement("audio");
+audio2.src = "audio/santa1.mp3";
+
+var audio3 = document.createElement("audio");
+audio3.src = "audio/win1.mp3";
+
+var audio4 = document.createElement("audio");
+audio4.src = "audio/win2.mp3";
+
+var audio5 = document.createElement("audio");
+audio5.src = "audio/win3.mp3";
+
+var audio6 = document.createElement("audio");
+audio6.src = "audio/zeroscore.mp3";
+
+// Creating random background music
+var bkgrndMusic = []
+bkgrndMusic.push("audio/bkgrnd1.mp3");
+bkgrndMusic.push("audio/bkgrnd2.mp3");
+bkgrndMusic.push("audio/bkgrnd3.mp3");
+
+var bkgrndAudio = document.createElement("audio");
+bkgrndAudio.src = bkgrndMusic[Math.floor(Math.random() * bkgrndMusic.length)];
+
+bkgrndAudio.play();
+
+// Looping the background music
+bkgrndAudio.addEventListener('ended', function(){
+  this.currentTime = 0;
+  this.play();
+}, false);
+
+// Pause background audio button
+document.getElementById("musicButton").onclick = function() {
+  bkgrndAudio.pause();
+};
