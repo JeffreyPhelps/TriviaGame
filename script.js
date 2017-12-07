@@ -2,14 +2,12 @@
 
 
 // Reset game button
-
 document.getElementById("resetButton").onclick = function() {
     window.location.reload();
   };
 
-  
-// The Questions
 
+// The Questions
 var questions = [{
     question: "Which department store created Rudolph the Red-Nosed Reindeer?",
     choices: [" Dillards", " Montgomery Ward", " Macy's", " JC Penny's"],
@@ -61,106 +59,107 @@ var quizOver = false;
 // Wait until the document loads to...
 $(document).ready(function () {
     
-        // Display the first question
-        displayCurrentQuestion();
-        $(this).find(".quizMessage").hide();
-    
-        // On clicking next, display the next question
-        $(this).find(".nextButton").on("click", function () {
-            $(document).find(".nextButton").val("NEXT QUESTION");
-            audio1.play();
-            if (!quizOver) {
-    
-                value = $("input[type='radio']:checked").val();
-    
-                if (value == undefined) {
-                    $(document).find(".quizMessage").text("Please select an answer");
-                    $(document).find(".quizMessage").show();
-                } else {
-                    $(document).find(".quizMessage").hide();
-    
-                    if (value == questions[currentQuestion].correctAnswer) {
-                        correctAnswers++;
-                    }
-    
-                    currentQuestion++; // Since we have already displayed the first question on DOM ready
-                    if (currentQuestion < questions.length) {
-                        displayCurrentQuestion();
-                    } else {
-                        displayScore();
-                        // Change the text in the next button to ask if user wants to play again
-                        $(document).find(".nextButton").val("Play Again?");
-                        quizOver = true;
-                    }
+    // Display the first question
+    displayCurrentQuestion();
+    $(this).find(".quizMessage").hide();
+
+    // On clicking next, display the next question
+    $(this).find(".nextButton").on("click", function () {
+        $(document).find(".nextButton").val("NEXT QUESTION");
+        audio1.play();
+        if (!quizOver) {
+
+            value = $("input[type='radio']:checked").val();
+
+            if (value == undefined) {
+                $(document).find(".quizMessage").text("Please select an answer");
+                $(document).find(".quizMessage").show();
+            } else {
+                $(document).find(".quizMessage").hide();
+
+                if (value == questions[currentQuestion].correctAnswer) {
+                    correctAnswers++;
                 }
-            } else { // quiz is over and clicked the next button (which now displays 'Play Again?'
-                quizOver = false;
-                resetQuiz();
-                displayCurrentQuestion();
-                hideScore();
+
+                currentQuestion++; // Since we have already displayed the first question on DOM ready
+                if (currentQuestion < questions.length) {
+                    displayCurrentQuestion();
+                } else {
+                    displayScore();
+                    // Change the text in the next button to ask if user wants to play again
+                    $(document).find(".nextButton").val("Play Again?");
+                    quizOver = true;
+                }
             }
-        });
-    
+        } else { // quiz is over and clicked the next button (which now displays 'Play Again?'
+            quizOver = false;
+            resetQuiz();
+            displayCurrentQuestion();
+            hideScore();
+        };
     });
-    
-    // This displays the current question AND the choices
-    function displayCurrentQuestion() {
-    
-        console.log("In display current Question");
-    
-        var question = questions[currentQuestion].question;
-        var questionClass = $(document).find(".quizContainer > .question");
-        var choiceList = $(document).find(".quizContainer > .choiceList");
-        var numChoices = questions[currentQuestion].choices.length;
-    
-        // Set the questionClass text to the current question
-        $(questionClass).text(question);
-    
-        // Remove all current <li> elements (if any)
-        $(choiceList).find("li").remove();
-    
-        var choice;
-        for (i = 0; i < numChoices; i++) {
-            choice = questions[currentQuestion].choices[i];
-            $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
-        }
-    }
-    
-    function resetQuiz() {
-        currentQuestion = 0;
-        correctAnswers = 0;
-        hideScore();
-        audio2.play();
-        bkgrndAudio.play();
-    }
-    
-    function displayScore() {
-        
-        if (correctAnswers >= 7) {
-            audio3.play();
-            $(document).find(".quizContainer > .result").text("Excellent job! You scored: " + correctAnswers + " out of " + questions.length);
-        }
-        else if (correctAnswers >= 4) {
-            audio4.play();
-            $(document).find(".quizContainer > .result").text("Not bad. You scored: " + correctAnswers + " out of " + questions.length + " Try again, perhaps?");
-        }
-        else if (correctAnswers >= 1) {
-            audio5.play();
-            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + " You can do better!");
-        }
-        else if (correctAnswers < 1) {
-            bkgrndAudio.pause();
-            audio6.play();
-            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + ", You should try again...");
-        }
 
-        $(document).find(".quizContainer > .result").show();
-    }
+});
     
-    function hideScore() {
-        $(document).find(".result").hide();
+// This displays the current question AND the choices
+function displayCurrentQuestion() {
+
+    console.log("In display current Question");
+
+    var question = questions[currentQuestion].question;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = questions[currentQuestion].choices.length;
+
+    // Set the questionClass text to the current question
+    $(questionClass).text(question);
+
+    // Remove all current <li> elements (if any)
+    $(choiceList).find("li").remove();
+
+    var choice;
+    for (i = 0; i < numChoices; i++) {
+        choice = questions[currentQuestion].choices[i];
+        $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
+    };
+};
+    
+// Reset the quiz
+function resetQuiz() {
+    bkgrndAudio.play();
+    currentQuestion = 0;
+    correctAnswers = 0;
+    hideScore();
+};
+    
+// Display the score after the game
+function displayScore() {
+    
+    if (correctAnswers >= 7) {
+        audio3.play();
+        $(document).find(".quizContainer > .result").text("Excellent job! You scored: " + correctAnswers + " out of " + questions.length);
+    }
+    else if (correctAnswers >= 4) {
+        audio4.play();
+        $(document).find(".quizContainer > .result").text("Not bad. You scored: " + correctAnswers + " out of " + questions.length + " Try again, perhaps?");
+    }
+    else if (correctAnswers >= 1) {
+        audio5.play();
+        $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + " You can do better!");
+    }
+    else if (correctAnswers < 1) {
+        bkgrndAudio.pause();
+        audio6.play();
+        $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + ", you should try again...");
     }
 
+    $(document).find(".quizContainer > .result").show();
+};
+
+// Hide the score upon restarting the quiz
+function hideScore() {
+    $(document).find(".result").hide();
+};
 
 
 
@@ -203,4 +202,10 @@ bkgrndAudio.addEventListener('ended', function(){
 // Pause background audio button
 document.getElementById("musicButton").onclick = function() {
   bkgrndAudio.pause();
+  audio1.pause();
+  audio2.pause();
+  audio3.pause();
+  audio4.pause();
+  audio5.pause();
+  audio6.pause();
 };
