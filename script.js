@@ -1,6 +1,13 @@
 // Jeffrey Phelps - DU Web Dev Bootcamp 2017/2018 - Week-5 Homework - Trivia Game
 
 
+// Reset game button
+
+document.getElementById("resetButton").onclick = function() {
+    window.location.reload();
+  };
+
+  
 // The Questions
 
 var questions = [{
