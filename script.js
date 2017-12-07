@@ -60,6 +60,7 @@ $(document).ready(function () {
     
         // On clicking next, display the next question
         $(this).find(".nextButton").on("click", function () {
+            $(document).find(".nextButton").val("NEXT QUESTION");
             audio1.play();
             if (!quizOver) {
     
@@ -81,13 +82,12 @@ $(document).ready(function () {
                     } else {
                         displayScore();
                         // Change the text in the next button to ask if user wants to play again
-                        $(document).find(".nextButton").text("Play Again?");
+                        $(document).find(".nextButton").val("Play Again?");
                         quizOver = true;
                     }
                 }
             } else { // quiz is over and clicked the next button (which now displays 'Play Again?'
                 quizOver = false;
-                $(document).find(".nextButton").text("Next Question");
                 resetQuiz();
                 displayCurrentQuestion();
                 hideScore();
@@ -135,7 +135,7 @@ $(document).ready(function () {
         }
         else if (correctAnswers >= 4) {
             audio4.play();
-            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length);
+            $(document).find(".quizContainer > .result").text("Not bad. You scored: " + correctAnswers + " out of " + questions.length + " Try again, perhaps?");
         }
         else if (correctAnswers >= 1) {
             audio5.play();
@@ -144,7 +144,7 @@ $(document).ready(function () {
         else if (correctAnswers < 1) {
             bkgrndAudio.pause();
             audio6.play();
-            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + " You should try again...");
+            $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length + ", You should try again...");
         }
 
         $(document).find(".quizContainer > .result").show();
