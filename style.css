@@ -101,6 +101,17 @@ input {
     font-size: 20px;
 }
 
+#timerBox {
+    max-width: 100px;
+    float: right;
+    margin: 10px;
+    text-align: center;
+}
+
+#timer {
+    font-weight: bold;
+}
+
 /* END MAIN BOX */
 
 /* BEGIN FOOTER */

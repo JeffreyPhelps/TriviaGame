@@ -130,6 +130,7 @@ function resetQuiz() {
     currentQuestion = 0;
     correctAnswers = 0;
     hideScore();
+    setInterval();
 };
     
 // Display the score after the game
@@ -158,9 +159,20 @@ function displayScore() {
 
 // Hide the score upon restarting the quiz
 function hideScore() {
+    audio2.play();
     $(document).find(".result").hide();
 };
 
+// Countdown Timer
+var timer = 15;
+var interval = setInterval(function() {
+    timer--;
+    $('#timer').text(timer);
+    if (timer === 0) {
+        clearInterval(interval);
+        $('#timer').text("Just Kidding! It's Christmas, so you can have all the time you need! HO HO HO!");
+    }
+}, 1000);
 
 
 // Setting up game audio
