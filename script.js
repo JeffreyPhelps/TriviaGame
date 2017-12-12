@@ -1,6 +1,8 @@
 // Jeffrey Phelps - DU Web Dev Bootcamp 2017/2018 - Week-5 Homework - Trivia Game
 
 
+var interval = 0;
+
 // Reset game button
 document.getElementById("resetButton").onclick = function() {
     window.location.reload();
@@ -103,7 +105,8 @@ $(document).ready(function () {
     
 // This displays the current question AND the choices
 function displayCurrentQuestion() {
-
+    clearInterval(interval)
+    startTimer();    
     console.log("In display current Question");
 
     var question = questions[currentQuestion].question;
@@ -130,7 +133,8 @@ function resetQuiz() {
     currentQuestion = 0;
     correctAnswers = 0;
     hideScore();
-    setInterval();
+    clearInterval(interval)
+    startTimer();
 };
     
 // Display the score after the game
@@ -164,16 +168,17 @@ function hideScore() {
 };
 
 // Countdown Timer
-var timer = 15;
-var interval = setInterval(function() {
-    timer--;
-    $('#timer').text(timer);
-    if (timer === 0) {
-        clearInterval(interval);
-        $('#timer').text("Just Kidding! It's Christmas, so you can have all the time you need! HO HO HO!");
-    }
-}, 1000);
-
+function startTimer () {
+    var timer = 15;
+    interval = setInterval(function() {
+        timer--;
+        $('#timer').text(timer);
+        if (timer === 0) {
+            clearInterval(interval);
+            $('#timer').text("Just Kidding! It's Christmas, so you can have all the time you need! HO HO HO!");
+        }
+    }, 1000);
+};
 
 // Setting up game audio
 var audio1 = document.createElement("audio");
